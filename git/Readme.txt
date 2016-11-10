@@ -1,4 +1,2 @@
-Off to a slow start...
-working on getting familiarized with FLTK and figuring out how i will approach
-breaking my print statements and data input/validation from CLI to GUI.
-Have succesfully gotten FLTK working in Visual studio
+Set up the menubar. Working on getting the notation correct for the callback 
+to make a robot part through the gui. having trouble getting the callback type conversion to stick
