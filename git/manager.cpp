@@ -9,21 +9,109 @@
 #include "parts.h"
 #include "view.h"
 
+#include<FL/Fl_Window.H>
+#include<FL/Fl_Input.H>
+#include<FL/Fl_Int_Input.H>
+#include<FL/Fl_Float_Input.H>
+#include<FL/Enumerations.H>
+#include<FL/Fl_Box.H>
+#include<FL/Fl_Button.h>
+
+
+
 manager::manager(stock *repo, string title){
 	warehouse = repo;
 	name = title;
 }
 manager::manager() {}
 
-void manager::make_part(){
-	//make any part and store it into warehouse 
+void manager::valpartnumCB(Fl_Widget* w, void* x) {
+	Fl_Int_Input* partnumber = (Fl_Int_Input*)w;
+	const char* number(partnumber->value());
+	
+	if (number > "1000" && number < "9999") {
+	}
+	else {
+		Fl_Window* err = new Fl_Window(200, 100, "error");
+		Fl_Box* error = new Fl_Box(0, 0, 100, 50, "Part Number Must be 4 Digits");
+		err->end(); err->show();
+	}
+
+}
+
+void manager::part_validateCB(Fl_Widget* w, void* x) {
+	//data validation for all input firleds simultaneously
+	bool is_valid = TRUE;
 	view view;
-	int part_num;
-	string name;
-	double weight, price;
-	string input;
-	int option;
+	 
+	
+	do {
+	
+		int p_num = 0;	//part_num
+		if (p_num < 0) { is_valid = FALSE; }
+		string name;
+		double weight = 0;//weight
+		if (weight < 0) { is_valid = FALSE; }
+		double price=0;//price
+		if (price < 0) { is_valid = FALSE; }
+		double uniq1=0;//1st unique input
+		if (uniq1 < 0) { is_valid = FALSE; }
+		
+		double uniq2=0;     //2st unique input to part type
+		if (uniq2 < 0) { is_valid = FALSE; }
+			
+
+		if (is_valid == FALSE) {
+			Fl_Window* err = new Fl_Window(200, 100, "error");
+			Fl_Box* error = new Fl_Box(0, 0, 100, 50, "Invalid Input");
+			err->end(); err->show();
+			make_part(  1  );
+		}
+	} while (is_valid == FALSE);
+
+
+	
+}
+
+void manager::make_part(int type) {
+	//make any part and store it into warehouse 
+	
+
+	Fl_Window* win = new Fl_Window(550, 350, "Robot Part Creation");
+	Fl_Button* enterBox = new Fl_Button(100, 280, 100, 50, "make");
+	enterBox->box(FL_UP_BOX);
+
+	Fl_Int_Input* numberIn = new Fl_Int_Input(100, 40, 210, 25, "Part Number: "); 
+	Fl_Button* valnum = new Fl_Button(320, 40, 100, 25, "Validate"); 
+	valnum->callback( (Fl_Callback*)valpartnumCB );
+	Fl_Input* nameIn = new Fl_Input(100, 80, 210, 25, "Name: ");
+
+	Fl_Float_Input* weightIn = new Fl_Float_Input(100, 120, 210, 25, "Weight: ");
+
+	Fl_Float_Input* priceIn = new Fl_Float_Input(100, 160, 210, 25, "Price: ");
+
+	if (type == 2 || type == 4) {
+		Fl_Float_Input* usageIn = new Fl_Float_Input(100, 200, 210, 25, "Power Use: ");
+	}
+	if (type == 4) {
+		Fl_Float_Input* speedIn = new Fl_Float_Input(100, 240, 210, 25, "Max Speed: ");
+	}
+	if (type == 3) {
+		Fl_Int_Input* slotsIn = new Fl_Int_Input(100, 200, 210, 25, "Battery Slots: ");
+	}
+	if (type == 5) {
+		Fl_Float_Input* supplyIn = new Fl_Float_Input(100, 200, 210, 25, "Power Supply: ");
+	}
+	
+	enterBox->callback((Fl_Callback*)part_validateCB);
+	
+
+	win->end();
+	win->show();
+
+	
 	//gather part information shared by all parts
+	/*
 	do{
 		cout << "4 digit Part number: ";
 		fflush(stdin);  cin >> input;
@@ -100,10 +188,17 @@ void manager::make_part(){
 		battery battery(part_num, name, weight, price, supply);
 		warehouse->add_part_b(battery);
 		break; }
-	}
+	}*/
 }
 
-void manager::make_robot(){
+void manager::make_robotCB(){
+
+	
+	
+	Fl_Window* win = new Fl_Window(550, 350, "Robot Creation");
+
+
+	/*
 	// make a robot from selected parts.
 	view view;
 	int h, a, t, m;				//short sweet variable names for index of parts
@@ -192,5 +287,5 @@ void manager::make_robot(){
 	fflush(stdin); getline(cin, input);
 	robot robbie(warehouse->get_head(h), warehouse->get_torso(t), warehouse->get_arm(a), warehouse->get_motor(m), b, input, model);
 	warehouse->add_robot(robbie);
-
+	*/
 }

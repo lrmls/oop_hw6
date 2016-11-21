@@ -11,6 +11,10 @@
 #include "boss.h"
 
 #include <FL/Fl_Widget.H>
+#include<FL/Fl_Button.H>
+#include<FL/Fl_Window.H>
+#include<FL/Fl_Box.H>
+#include<FL/Fl_Menu_Button.h>
 
 #include <iostream>
 #include <fstream>
@@ -21,11 +25,33 @@ shop::shop() {
 	pm = ben;
 }
 
-void shop::partCB(Fl_Widget* w, void* x){
-	pm.make_part();
-}
+ void shop::partCB(Fl_Widget* w, void* x){
+	 int type=0;
+	 string label = ((Fl_Menu_*)w)->text();
+	 if (strcmp(label.c_str(), "Head") == 0) { type = 1; }
+	 if (strcmp(label.c_str(), "Arm") == 0) { type = 2; }
+	 if (strcmp(label.c_str(), "Torso") == 0) { type = 3; }
+	 if (strcmp(label.c_str(), "Motor") == 0) { type = 4; }
+	 if (strcmp(label.c_str(), "Battery") == 0) { type = 5; }
+	 ((shop*)x)->pm.make_part(type);
+	 
+ }
+ void shop::robotCB(Fl_Widget* w, void* x) {
+	 shop* main = ((shop*)x);
+	  
+	 
+	 if (warehouse.get_qty_h() == 0 || warehouse.get_qty_a() == 0 || warehouse.get_qty_t() == 0 || warehouse.get_qty_m() == 0 || warehouse.get_qty_b() == 0)
+	 {
+		 Fl_Window* win = new Fl_Window(550, 350, "Error");
+		 Fl_Box* err = new Fl_Box(0, 0, 100, 25, "Required Parts Unavailable");
+		 return;
+	 }
+	 
+	 main->pm.make_robotCB();
+ }
 
 
+/*
 void shop::run(){
 	
 	
@@ -183,3 +209,4 @@ int shop::get_customer(){
 seller shop::get_seller(int index){
 	return sellers[index];
 }
+*/

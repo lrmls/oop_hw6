@@ -1,0 +1,23 @@
+h 1234 funnyhead 25.2 32.5
+h 2543 googlyhead 100.2 2.25
+h 5346 crazyhead 0.23 24.5
+h 5645 funkyhead 56.2 325.2
+h 2354 sillyhead 546 0.99
+t 2354 mega 25.2 2135 4
+t 1111 male 40 25.5 2
+t 9999 female 20.5 25.5 3
+a 5000 long 10.2 5 2
+a 2000 short 7.5 4 1.5
+a 7000 crooked 15.2 12 8
+m 5500 tall 12.5 7 10 15
+m 2500 short 8.5 6 7.2 30
+b 1009 hp 3 2 75
+b 5009 eff 1.5 5 50
+b 8009 l-l 1.2 5 30
+r 23156 Bob 2187.5 1234 2354 5000 5500 1009 1009 1009 1009 
+c Keith
+c Amber
+s Joey
+s Tabitha
+o Kieth Tabitha 0 19 10 2016 2 23156 23156 
+o Amber Joey 0 19 10 2016 5 23156 23156 23156 23156 23156 

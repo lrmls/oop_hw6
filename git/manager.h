@@ -10,14 +10,28 @@
 #include "parts.h"
 #include "stock.h"
 
+#include<FL/Fl_Widget.h>
+
 class manager{
 private:
 	stock *warehouse;
 	string name;
+
+	//hold string to validate for callback access
+	static string valprice;
+	static string valweight;
+	static string valpartnum;
+	static string valname;
+	static string valsupply;
+	static string valoutput;
+	static string valslots;
 public:
 	manager(stock*, string);
 	manager();
-	void make_part();
-	void make_robot();
+	static void make_part(int);
+	void make_robotCB();
+
+	static void part_validateCB(Fl_Widget* w, void* x);
+	static void valpartnumCB(Fl_Widget*, void*);
 };
 #endif

@@ -20,7 +20,7 @@ private:
 	vector <customer> customers;
 	vector <seller> sellers;
 	vector <order> orders;
-	stock warehouse;
+	static stock warehouse;
 	boss boss;
 	view view;
 	manager pm;
@@ -29,9 +29,11 @@ private:
 public:
 	shop();
 	void run();
-	void partCB(Fl_Widget*, void*);
+	
 	int get_customer();
 	seller get_seller(int);
-
+	// FLTK Callbacks
+	static void partCB(Fl_Widget*, void*);
+	static void robotCB(Fl_Widget*, void*);
 };
 #endif
